@@ -4,8 +4,8 @@ from temperature import (
     Temperature,
     TemperatureDelta,
     TemperatureUnit,
-    get_unit_abbreviation,
-    get_unit_name,
+    get_temperature_unit_abbreviation,
+    get_temperature_unit_name,
 )
 
 # Temperature and TemperatureDelta are designed to act as record types -
@@ -63,5 +63,5 @@ temp_as_string = str(temp)  # "100 C"
 dtemp_as_string = str(dtemp)  # "50 K"
 
 # Get the unit name or abbreviation
-unit_abbreviation = get_unit_abbreviation(TemperatureUnit.CELSIUS)  # "C"
-unit_name = get_unit_name(TemperatureUnit.FAHRENHEIT)  # "fahrenheit"
+unit_abbreviation = get_temperature_unit_abbreviation(TemperatureUnit.CELSIUS)  # "C"
+unit_name = get_temperature_unit_name(TemperatureUnit.FAHRENHEIT)  # "fahrenheit"

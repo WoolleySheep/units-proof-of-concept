@@ -27,22 +27,23 @@ _representation_to_unit_map: Final = {
 
 
 class UnitConversionParameters:
-    """Parameters required to convert from one unit to another."""
+    """Parameters required to convert from kelvin to a unit."""
 
-    def __init__(self, multiplier: float, offset: float):
-        self._multiplier = multiplier
-        self._offset = offset
-
-    @property
-    def multiplier(self) -> float:
-        return self._multiplier
+    def __init__(
+        self, unit_delta_per_degree_kelvin: float, absolute_zero_offset: float
+    ) -> None:
+        self._unit_delta_per_degree_kelvin = unit_delta_per_degree_kelvin
+        self._absolute_zero_offset = absolute_zero_offset
 
     @property
-    def offset(self) -> float:
-        return self._offset
+    def unit_delta_per_degree_kelvin(self) -> float:
+        return self._unit_delta_per_degree_kelvin
+
+    @property
+    def absolute_zero_offset(self) -> float:
+        return self._absolute_zero_offset
 
 
-# TODO: Check these parameters are correct
 _KELVIN_TO_CELSIUS_CONVERSION_PARAMETERS: Final = UnitConversionParameters(1, -273.15)
 _KELVIN_TO_KELVIN_CONVERSION_PARAMETERS: Final = UnitConversionParameters(1, 0)
 _KELVIN_TO_FAHRENHEIT_CONVERSION_PARAMETERS: Final = UnitConversionParameters(
@@ -62,7 +63,7 @@ def get_name(unit: TemperatureUnit) -> str:
     raise ValueError
 
 
-def get_abbrevation(unit: TemperatureUnit) -> str:
+def get_abbreviation(unit: TemperatureUnit) -> str:
     match unit:
         case TemperatureUnit.CELSIUS:
             return _CELSIUS_NAME
@@ -78,7 +79,7 @@ def parse_unit(unit_representation: str) -> TemperatureUnit:
     try:
         return _representation_to_unit_map[unit_representation]
     except KeyError:
-        raise ValueError from ValueError
+        raise ValueError
 
 
 def get_kelvin_to_unit_conversion_parameters(

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from temperature.temperature_units import (
     TemperatureUnit,
-    get_abbrevation,
+    get_abbreviation,
     get_kelvin_to_unit_conversion_parameters,
 )
 
@@ -13,19 +13,21 @@ class TemperatureDelta:
         self._unit = unit
 
     def as_unit(self, unit: TemperatureUnit) -> float:
-        kelvin_to_internal_unit_conversion_parameters = (
-            get_kelvin_to_unit_conversion_parameters(self._unit)
+        internal_unit_conversion_parameters = get_kelvin_to_unit_conversion_parameters(
+            self._unit
         )
 
         value_as_kelvin = (
-            self._value / kelvin_to_internal_unit_conversion_parameters.multiplier
+            self._value
+            / internal_unit_conversion_parameters.unit_delta_per_degree_kelvin
         )
 
-        kelvin_to_external_unit_conversion_parameters = (
-            get_kelvin_to_unit_conversion_parameters(unit)
+        external_unit_conversion_parameters = get_kelvin_to_unit_conversion_parameters(
+            unit
         )
         return (
-            kelvin_to_external_unit_conversion_parameters.multiplier * value_as_kelvin
+            external_unit_conversion_parameters.unit_delta_per_degree_kelvin
+            * value_as_kelvin
         )
 
     def __mul__(self, multiplier: float) -> TemperatureDelta:
@@ -88,7 +90,7 @@ class TemperatureDelta:
         )
 
     def __str__(self) -> str:
-        return f"{self._value} {get_abbrevation(self._unit)}"
+        return f"{self._value} {get_abbreviation(self._unit)}"
 
     def __repr__(self) -> str:
         return f"{__class__.__name__}({self._value}, {self._unit.name})"
