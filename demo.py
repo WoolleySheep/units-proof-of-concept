@@ -41,6 +41,9 @@ dtemp2 = dtemp * 2
 dtemp2 = dtemp / 2
 dtemp2 = -dtemp
 
+# Divide TemperatureDelta by a TemperatureDelta to return the ratio
+ratio = dtemp / dtemp
+
 # Can perform comparisons between Temperature
 result = temp == temp
 result = temp < temp

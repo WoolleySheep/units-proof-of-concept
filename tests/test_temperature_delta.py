@@ -53,6 +53,13 @@ def test_divide_temperature_delta_by_value() -> None:
     assert math.isclose(1, new_delta.as_unit(TemperatureUnit.CELSIUS))
 
 
+def test_divide_temperature_delta_by_temperature_delta_to_get_ratio() -> None:
+    delta1 = TemperatureDelta(2, TemperatureUnit.CELSIUS)
+    delta2 = TemperatureDelta(1, TemperatureUnit.CELSIUS)
+    ratio = delta1 / delta2
+    assert math.isclose(2, ratio)
+
+
 def test_negative_of_temperature_delta() -> None:
     delta = TemperatureDelta(1, TemperatureUnit.CELSIUS)
     new_delta = -delta

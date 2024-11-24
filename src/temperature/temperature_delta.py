@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import overload
+
 from .temperature_units import (
     TemperatureUnit,
     get_abbreviation,
@@ -37,9 +39,20 @@ class TemperatureDelta:
     def __rmul__(self, value: float) -> TemperatureDelta:
         return self * value
 
-    def __truediv__(self, value: float) -> TemperatureDelta:
-        scaled_value = self._value / value
-        return TemperatureDelta(scaled_value, self._unit)
+    @overload
+    def __truediv__(self, other: float) -> TemperatureDelta: ...
+
+    @overload
+    def __truediv__(self, other: TemperatureDelta) -> float: ...
+
+    def __truediv__(self, other: float | TemperatureDelta) -> TemperatureDelta | float:
+        if isinstance(other, TemperatureDelta):
+            value_as_kelvin = self.as_unit(TemperatureUnit.KELVIN)
+            other_value_as_kelvin = other.as_unit(TemperatureUnit.KELVIN)
+            return value_as_kelvin / other_value_as_kelvin
+        else:
+            scaled_value = self._value / other
+            return TemperatureDelta(scaled_value, self._unit)
 
     def __add__(self, other: TemperatureDelta) -> TemperatureDelta:
         # This is here because the case of a TemperatureDelta + a Temperature is
