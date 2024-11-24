@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from temperature.temperature_units import (
+from .temperature_units import (
     TemperatureUnit,
     get_abbreviation,
     get_kelvin_to_unit_conversion_parameters,

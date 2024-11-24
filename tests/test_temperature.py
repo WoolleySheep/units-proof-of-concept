@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from temperature import Temperature, TemperatureDelta, TemperatureUnit
+from src import Temperature, TemperatureDelta, TemperatureUnit
 
 
 def test_create_temperature() -> None:

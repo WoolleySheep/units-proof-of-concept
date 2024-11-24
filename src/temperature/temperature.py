@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Final, overload
 
-from temperature.temperature_delta import TemperatureDelta
-from temperature.temperature_units import (
+from .temperature_delta import TemperatureDelta
+from .temperature_units import (
     TemperatureUnit,
     get_abbreviation,
     get_kelvin_to_unit_conversion_parameters,
