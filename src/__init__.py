@@ -4,4 +4,5 @@ from .temperature import (
     TemperatureUnit,
     get_unit_abbreviation,
     get_unit_name,
+    parse_unit,
 )

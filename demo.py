@@ -6,6 +6,7 @@ from src.temperature import (
     TemperatureUnit,
     get_unit_abbreviation,
     get_unit_name,
+    parse_unit,
 )
 
 # Temperature and TemperatureDelta are designed to act as record types -
@@ -65,3 +66,7 @@ dtemp_as_string = str(dtemp)  # "50 K"
 # Get the unit name or abbreviation
 unit_abbreviation = get_unit_abbreviation(TemperatureUnit.CELSIUS)  # "C"
 unit_name = get_unit_name(TemperatureUnit.FAHRENHEIT)  # "fahrenheit"
+
+# Parse a unit representation
+unit = parse_unit("celsius")  # TemperatureUnit.CELSIUS
+unit = parse_unit("K")  # TemperatureUnit.KELVIN
