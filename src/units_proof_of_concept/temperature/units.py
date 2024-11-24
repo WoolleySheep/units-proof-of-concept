@@ -10,19 +10,19 @@ _KELVIN_ABBREVIATION: Final = "K"
 _FAHRENHEIT_ABBREVIATION: Final = "F"
 
 
-class TemperatureUnit(enum.Enum):
+class Unit(enum.Enum):
     CELSIUS = enum.auto()
     KELVIN = enum.auto()
     FAHRENHEIT = enum.auto()
 
 
 _representation_to_unit_map: Final = {
-    _CELSIUS_NAME: TemperatureUnit.CELSIUS,
-    _CELSIUS_ABBREVIATION: TemperatureUnit.CELSIUS,
-    _KELVIN_NAME: TemperatureUnit.KELVIN,
-    _KELVIN_ABBREVIATION: TemperatureUnit.KELVIN,
-    _FAHRENHEIT_NAME: TemperatureUnit.FAHRENHEIT,
-    _FAHRENHEIT_ABBREVIATION: TemperatureUnit.FAHRENHEIT,
+    _CELSIUS_NAME: Unit.CELSIUS,
+    _CELSIUS_ABBREVIATION: Unit.CELSIUS,
+    _KELVIN_NAME: Unit.KELVIN,
+    _KELVIN_ABBREVIATION: Unit.KELVIN,
+    _FAHRENHEIT_NAME: Unit.FAHRENHEIT,
+    _FAHRENHEIT_ABBREVIATION: Unit.FAHRENHEIT,
 }
 
 
@@ -51,31 +51,31 @@ _KELVIN_TO_FAHRENHEIT_CONVERSION_PARAMETERS: Final = UnitConversionParameters(
 )
 
 
-def get_name(unit: TemperatureUnit) -> str:
+def get_name(unit: Unit) -> str:
     match unit:
-        case TemperatureUnit.CELSIUS:
+        case Unit.CELSIUS:
             return _CELSIUS_ABBREVIATION
-        case TemperatureUnit.KELVIN:
+        case Unit.KELVIN:
             return _KELVIN_ABBREVIATION
-        case TemperatureUnit.FAHRENHEIT:
+        case Unit.FAHRENHEIT:
             return _FAHRENHEIT_ABBREVIATION
 
     raise ValueError
 
 
-def get_abbreviation(unit: TemperatureUnit) -> str:
+def get_abbreviation(unit: Unit) -> str:
     match unit:
-        case TemperatureUnit.CELSIUS:
+        case Unit.CELSIUS:
             return _CELSIUS_NAME
-        case TemperatureUnit.KELVIN:
+        case Unit.KELVIN:
             return _KELVIN_NAME
-        case TemperatureUnit.FAHRENHEIT:
+        case Unit.FAHRENHEIT:
             return _FAHRENHEIT_NAME
 
     raise ValueError
 
 
-def parse_unit(unit_representation: str) -> TemperatureUnit:
+def parse(unit_representation: str) -> Unit:
     try:
         return _representation_to_unit_map[unit_representation]
     except KeyError:
@@ -83,12 +83,12 @@ def parse_unit(unit_representation: str) -> TemperatureUnit:
 
 
 def get_kelvin_to_unit_conversion_parameters(
-    unit: TemperatureUnit,
+    unit: Unit,
 ) -> UnitConversionParameters:
     match unit:
-        case TemperatureUnit.CELSIUS:
+        case Unit.CELSIUS:
             return _KELVIN_TO_CELSIUS_CONVERSION_PARAMETERS
-        case TemperatureUnit.KELVIN:
+        case Unit.KELVIN:
             return _KELVIN_TO_KELVIN_CONVERSION_PARAMETERS
-        case TemperatureUnit.FAHRENHEIT:
+        case Unit.FAHRENHEIT:
             return _KELVIN_TO_FAHRENHEIT_CONVERSION_PARAMETERS

@@ -1,9 +1,11 @@
 import contextlib
 
-from src.temperature import (
+from src.units_proof_of_concept import (
     Temperature,
     TemperatureDelta,
     TemperatureUnit,
+)
+from src.units_proof_of_concept.temperature import (
     get_unit_abbreviation,
     get_unit_name,
     parse_unit,
@@ -18,7 +20,7 @@ temp = Temperature(100, TemperatureUnit.CELSIUS)
 
 # Cannot create invalid temperature
 with contextlib.suppress(ValueError):
-    Temperature(-400, TemperatureUnit.CELSIUS)  # Less than absolute zero
+    Temperature(-300, TemperatureUnit.CELSIUS)  # Less than absolute zero
 
 # Create unit-agnostic temperature difference
 dtemp = TemperatureDelta(50, TemperatureUnit.KELVIN)
@@ -70,6 +72,6 @@ dtemp_as_string = str(dtemp)  # "50 K"
 unit_abbreviation = get_unit_abbreviation(TemperatureUnit.CELSIUS)  # "C"
 unit_name = get_unit_name(TemperatureUnit.FAHRENHEIT)  # "fahrenheit"
 
-# Parse a unit representation
+# Parse a unit representation (name or abbreviation)
 unit = parse_unit("celsius")  # TemperatureUnit.CELSIUS
 unit = parse_unit("K")  # TemperatureUnit.KELVIN

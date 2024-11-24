@@ -2,19 +2,19 @@ from __future__ import annotations
 
 from typing import overload
 
-from .temperature_units import (
-    TemperatureUnit,
+from .units import (
+    Unit,
     get_abbreviation,
     get_kelvin_to_unit_conversion_parameters,
 )
 
 
 class TemperatureDelta:
-    def __init__(self, value: float, unit: TemperatureUnit) -> None:
+    def __init__(self, value: float, unit: Unit) -> None:
         self._value = value
         self._unit = unit
 
-    def as_unit(self, unit: TemperatureUnit) -> float:
+    def as_unit(self, unit: Unit) -> float:
         internal_unit_conversion_parameters = get_kelvin_to_unit_conversion_parameters(
             self._unit
         )
@@ -47,8 +47,8 @@ class TemperatureDelta:
 
     def __truediv__(self, other: float | TemperatureDelta) -> TemperatureDelta | float:
         if isinstance(other, TemperatureDelta):
-            value_as_kelvin = self.as_unit(TemperatureUnit.KELVIN)
-            other_value_as_kelvin = other.as_unit(TemperatureUnit.KELVIN)
+            value_as_kelvin = self.as_unit(Unit.KELVIN)
+            other_value_as_kelvin = other.as_unit(Unit.KELVIN)
             return value_as_kelvin / other_value_as_kelvin
         else:
             scaled_value = self._value / other
@@ -61,10 +61,10 @@ class TemperatureDelta:
         if not isinstance(other, TemperatureDelta):  # type: ignore[reportUnnecessaryIsInstance]
             return NotImplemented
 
-        value_as_kelvin = self.as_unit(TemperatureUnit.KELVIN)
-        delta_value_as_kelvin = other.as_unit(TemperatureUnit.KELVIN)
+        value_as_kelvin = self.as_unit(Unit.KELVIN)
+        delta_value_as_kelvin = other.as_unit(Unit.KELVIN)
         added_value_as_kelvin = value_as_kelvin + delta_value_as_kelvin
-        return TemperatureDelta(added_value_as_kelvin, TemperatureUnit.KELVIN)
+        return TemperatureDelta(added_value_as_kelvin, Unit.KELVIN)
 
     def __sub__(self, delta: TemperatureDelta) -> TemperatureDelta:
         return self + (-delta)
@@ -79,28 +79,20 @@ class TemperatureDelta:
 
     def __eq__(self, other: object) -> bool:
         return isinstance(other, TemperatureDelta) and self.as_unit(
-            TemperatureUnit.KELVIN
-        ) == other.as_unit(TemperatureUnit.KELVIN)
+            Unit.KELVIN
+        ) == other.as_unit(Unit.KELVIN)
 
     def __lt__(self, other: TemperatureDelta) -> bool:
-        return self.as_unit(TemperatureUnit.KELVIN) < other.as_unit(
-            TemperatureUnit.KELVIN
-        )
+        return self.as_unit(Unit.KELVIN) < other.as_unit(Unit.KELVIN)
 
     def __le__(self, other: TemperatureDelta) -> bool:
-        return self.as_unit(TemperatureUnit.KELVIN) <= other.as_unit(
-            TemperatureUnit.KELVIN
-        )
+        return self.as_unit(Unit.KELVIN) <= other.as_unit(Unit.KELVIN)
 
     def __gt__(self, other: TemperatureDelta) -> bool:
-        return self.as_unit(TemperatureUnit.KELVIN) > other.as_unit(
-            TemperatureUnit.KELVIN
-        )
+        return self.as_unit(Unit.KELVIN) > other.as_unit(Unit.KELVIN)
 
     def __ge__(self, other: TemperatureDelta) -> bool:
-        return self.as_unit(TemperatureUnit.KELVIN) >= other.as_unit(
-            TemperatureUnit.KELVIN
-        )
+        return self.as_unit(Unit.KELVIN) >= other.as_unit(Unit.KELVIN)
 
     def __str__(self) -> str:
         return f"{self._value} {get_abbreviation(self._unit)}"
