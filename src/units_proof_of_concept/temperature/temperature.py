@@ -90,3 +90,6 @@ class Temperature:
 
     def __repr__(self) -> str:
         return f"{__class__.__name__}({self._value}, {self._unit.name})"
+
+
+ABSOLUTE_ZERO: Final = Temperature(_ABSOLUTE_ZERO_AS_KELVIN, Unit.KELVIN)
